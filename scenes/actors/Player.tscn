@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0player0scene1"]
+
+[ext_resource type="Script" path="res://scripts/actors/Player.gd" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(28, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(52, 44)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Placeholder" type="ColorRect" parent="Sprite"]
+offset_left = -14.0
+offset_top = -26.0
+offset_right = 14.0
+offset_bottom = 26.0
+color = Color(0.949020, 0.949020, 0.949020, 1)
+
+[node name="FaceDir" type="ColorRect" parent="Sprite"]
+offset_left = 6.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = -6.0
+color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="InteractPrompt" type="Label" parent="."]
+visible = false
+offset_left = -70.0
+offset_top = -70.0
+offset_right = 70.0
+offset_bottom = -44.0
+theme_override_font_sizes/font_size = 20
+text = "[ Tương tác ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(34, 0)
+collision_layer = 8
+collision_mask = 80
+monitoring = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true

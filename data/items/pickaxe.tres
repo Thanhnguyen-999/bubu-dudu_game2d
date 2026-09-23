@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://c0item0pick001"]
+
+[ext_resource type="Script" path="res://scripts/systems/ItemData.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"pickaxe"
+display_name = "Cuốc chim"
+icon_color = Color(0.6, 0.62, 0.68, 1)
+type = 1
+stackable = false
+max_stack = 1
+description = "Đào đá và quặng nhanh hơn."
+power = 3

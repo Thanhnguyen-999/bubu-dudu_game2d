@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3 uid="uid://c0recipe0bow01"]
+
+[ext_resource type="Script" path="res://scripts/systems/RecipeData.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+recipe_id = &"craft_bow"
+inputs = {
+"wood": 2,
+"fiber": 2
+}
+output_id = &"bow"
+output_amount = 1

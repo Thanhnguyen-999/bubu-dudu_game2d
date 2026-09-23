@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0invslot00001"]
+
+[ext_resource type="Script" path="res://scripts/ui/InventorySlotUI.gd" id="1_slot"]
+
+[node name="InventorySlotUI" type="Panel"]
+custom_minimum_size = Vector2(72, 72)
+script = ExtResource("1_slot")
+
+[node name="ColorBox" type="ColorRect" parent="."]
+visible = false
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 62.0
+offset_bottom = 62.0
+color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="Icon" type="TextureRect" parent="."]
+visible = false
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Count" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -28.0
+offset_right = -4.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 18
+text = ""
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0resnode00001"]
+
+[ext_resource type="Script" path="res://scripts/actors/ResourceNode.gd" id="1_res"]
+
+[sub_resource type="RectangleShape2D" id="RS_res"]
+size = Vector2(48, 80)
+
+[node name="ResourceNode" type="Area2D"]
+script = ExtResource("1_res")
+drop_item = &"wood"
+drop_amount = 2
+max_hp = 3
+preferred_tool = &"axe"
+respawn_time = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RS_res")
+
+[node name="Visual" type="ColorRect" parent="."]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = 40.0
+color = Color(0.31, 0.52, 0.28, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -66.0
+offset_right = 40.0
+offset_bottom = -44.0
+text = "Cây"
+horizontal_alignment = 1

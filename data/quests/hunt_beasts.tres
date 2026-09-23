@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://c0quest0hunt01"]
+
+[ext_resource type="Script" path="res://scripts/systems/QuestData.gd" id="1_quest"]
+
+[resource]
+script = ExtResource("1_quest")
+quest_id = &"hunt_beasts"
+title = "Dọn sạch thú dữ"
+description = "Hạ 3 con thú trong rừng."
+objective_type = 1
+target_id = &""
+required_amount = 3
+unlock_map = &""

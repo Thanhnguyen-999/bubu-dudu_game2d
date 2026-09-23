@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://c0item0axe0001"]
+
+[ext_resource type="Script" path="res://scripts/systems/ItemData.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"axe"
+display_name = "Rìu"
+icon_color = Color(0.75, 0.6, 0.35, 1)
+type = 1
+stackable = false
+max_stack = 1
+description = "Chặt cây lấy gỗ nhanh hơn."
+power = 3

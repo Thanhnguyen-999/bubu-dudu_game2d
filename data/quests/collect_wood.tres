@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://c0quest0wood01"]
+
+[ext_resource type="Script" path="res://scripts/systems/QuestData.gd" id="1_quest"]
+
+[resource]
+script = ExtResource("1_quest")
+quest_id = &"collect_wood"
+title = "Gom củi cho lửa trại"
+description = "Thu thập 10 Gỗ trong rừng."
+objective_type = 0
+target_id = &"wood"
+required_amount = 10
+unlock_map = &"Beach"

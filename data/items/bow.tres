@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://c0item0bow0001"]
+
+[ext_resource type="Script" path="res://scripts/systems/ItemData.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"bow"
+display_name = "Cung"
+icon_color = Color(0.7, 0.55, 0.3, 1)
+type = 2
+stackable = false
+max_stack = 1
+description = "Vũ khí tầm xa. Bắn thú từ xa."
+power = 4

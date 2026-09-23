@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0beach0000001"]
+
+[ext_resource type="Script" path="res://scripts/maps/Beach.gd" id="1_beach"]
+[ext_resource type="PackedScene" uid="uid://c0player0scene1" path="res://scenes/actors/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c0touchctrl0001" path="res://scenes/ui/TouchControls.tscn" id="3_touch"]
+[ext_resource type="PackedScene" uid="uid://c0invui0000001" path="res://scenes/ui/InventoryUI.tscn" id="4_invui"]
+[ext_resource type="PackedScene" uid="uid://c0playerhud001" path="res://scenes/ui/PlayerHUD.tscn" id="5_hud"]
+[ext_resource type="PackedScene" uid="uid://c0door0000001" path="res://scenes/actors/furniture/Door.tscn" id="6_door"]
+
+[sub_resource type="RectangleShape2D" id="RS_ground"]
+size = Vector2(1600, 80)
+
+[node name="Beach" type="Node2D"]
+script = ExtResource("1_beach")
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 1600.0
+offset_bottom = 720.0
+color = Color(0.6, 0.82, 0.95, 1)
+
+[node name="Sea" type="ColorRect" parent="."]
+offset_top = 420.0
+offset_right = 1600.0
+offset_bottom = 620.0
+color = Color(0.25, 0.55, 0.75, 1)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(800, 660)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RS_ground")
+
+[node name="Sand" type="ColorRect" parent="Ground"]
+offset_left = -800.0
+offset_top = -40.0
+offset_right = 800.0
+offset_bottom = 40.0
+color = Color(0.9, 0.83, 0.6, 1)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="Spawn_default" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
+position = Vector2(180, 580)
+
+[node name="Spawn_from_forest" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
+position = Vector2(180, 580)
+
+[node name="DoorForest" parent="." instance=ExtResource("6_door")]
+position = Vector2(110, 580)
+prompt_text = "Về rừng"
+target_map = "Forest"
+target_spawn = "from_beach"
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(180, 580)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 720
+position_smoothing_enabled = true
+
+[node name="TouchControls" parent="." instance=ExtResource("3_touch")]
+
+[node name="InventoryUI" parent="." instance=ExtResource("4_invui")]
+
+[node name="PlayerHUD" parent="." instance=ExtResource("5_hud")]
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 1200.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 24
+text = "Bờ biển - map mới mở khóa từ nhiệm vụ! (bản demo)"
