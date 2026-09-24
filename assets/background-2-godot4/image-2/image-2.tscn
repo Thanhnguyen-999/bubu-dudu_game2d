@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="textures/image-2.png" id="1_texture"]
+
+[node name="Image2" type="Sprite2D"]
+texture_filter = 2
+texture = ExtResource("1_texture")
+centered = false

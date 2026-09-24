@@ -16,8 +16,8 @@ var player_max_health: int = 100
 var current_map: String = "House"          # Tên map hiện tại
 var player_spawn_point: String = "default" # Điểm spawn khi vào map
 
-# --- Map đã mở khóa (Forest luôn mở sẵn; map khác mở qua quest) ---
-var unlocked_maps: Array = ["House", "Forest"]
+# --- Map đã mở khóa (phố cổ + rừng mở sẵn; map khác mở qua quest) ---
+var unlocked_maps: Array = ["House", "PhoCoHoaLu", "Rung"]
 
 # --- Trạng thái tài nguyên đã khai thác theo map: {map_key: {node_id: true}} ---
 var harvested_resources: Dictionary = {}
@@ -30,7 +30,7 @@ func reset_new_game() -> void:
 	player_max_health = 100
 	current_map = "House"
 	player_spawn_point = "default"
-	unlocked_maps = ["House", "Forest"]
+	unlocked_maps = ["House", "PhoCoHoaLu", "Rung"]
 	harvested_resources = {}
 	state_reset.emit()
 
@@ -55,5 +55,5 @@ func from_dict(data: Dictionary) -> void:
 	player_max_health = int(data.get("player_max_health", 100))
 	current_map = data.get("current_map", "House")
 	player_spawn_point = data.get("player_spawn_point", "default")
-	unlocked_maps = data.get("unlocked_maps", ["House", "Forest"]).duplicate()
+	unlocked_maps = data.get("unlocked_maps", ["House", "PhoCoHoaLu", "Rung"]).duplicate()
 	harvested_resources = data.get("harvested_resources", {}).duplicate(true)

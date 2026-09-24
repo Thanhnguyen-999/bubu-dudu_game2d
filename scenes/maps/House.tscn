@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0house0000001"]
+[gd_scene load_steps=19 format=3 uid="uid://c0house0000001"]
 
 [ext_resource type="Script" path="res://scripts/maps/House.gd" id="1_house"]
 [ext_resource type="TileSet" uid="uid://c0tilesetres01" path="res://data/tilesets/placeholder_tileset.tres" id="2_tileset"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c0chestui00001" path="res://scenes/ui/ChestUI.tscn" id="11_chestui"]
 [ext_resource type="PackedScene" uid="uid://c0craftui00001" path="res://scenes/ui/CraftingUI.tscn" id="12_craftui"]
 [ext_resource type="PackedScene" uid="uid://c0tutorial00001" path="res://scenes/ui/TutorialOverlay.tscn" id="13_tut"]
+[ext_resource type="PackedScene" uid="uid://c0pandanpc0001" path="res://scenes/actors/PandaNPC.tscn" id="14_panda"]
 
 [sub_resource type="RectangleShape2D" id="RS_floor"]
 size = Vector2(1200, 60)
@@ -119,7 +120,7 @@ color = Color(0.470588, 0.321569, 0.192157, 1)
 [node name="Spawn_default" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
 position = Vector2(300, 540)
 
-[node name="Spawn_from_forest" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
+[node name="Spawn_from_town" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
 position = Vector2(1120, 540)
 
 [node name="Furniture" type="Node2D" parent="."]
@@ -135,6 +136,12 @@ position = Vector2(760, 558)
 
 [node name="Door" parent="Furniture" instance=ExtResource("8_door")]
 position = Vector2(1140, 540)
+prompt_text = "Ra phố cổ"
+target_map = "PhoCoHoaLu"
+target_spawn = "from_house"
+
+[node name="PandaNPC" parent="." instance=ExtResource("14_panda")]
+position = Vector2(980, 552)
 
 [node name="Player" parent="." instance=ExtResource("3_player")]
 position = Vector2(300, 540)

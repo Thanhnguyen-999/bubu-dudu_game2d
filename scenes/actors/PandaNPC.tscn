@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://xhq6wlnr50to"]
+
+[ext_resource type="Script" path="res://scripts/actors/NPC.gd" id="1_npc"]
+[ext_resource type="SpriteFrames" path="res://data/characters/panda_frames.tres" id="2_pframes"]
+
+[sub_resource type="RectangleShape2D" id="RS_panda"]
+size = Vector2(44, 64)
+
+[node name="PandaNPC" type="Area2D"]
+script = ExtResource("1_npc")
+prompt_text = "Trò chuyện"
+npc_name = "Panda"
+lines = Array[String](["Chào Mochi!", "Hôm nay mình đi chơi ở nhà nhé?"])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.6, 0.6)
+sprite_frames = ExtResource("2_pframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0)
+shape = SubResource("RS_panda")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -74.0
+offset_right = 60.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 16
+text = "Panda"
+horizontal_alignment = 1

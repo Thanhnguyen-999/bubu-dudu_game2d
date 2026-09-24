@@ -36,9 +36,15 @@ signal player_died
 const PROJECTILE_SCENE: PackedScene = preload("res://scenes/actors/Projectile.tscn")
 
 @onready var sprite: Node2D = $Sprite
+@onready var _anim: AnimatedSprite2D = $Sprite/AnimatedSprite2D if has_node("Sprite/AnimatedSprite2D") else null
 @onready var _prompt: Label = $InteractPrompt if has_node("InteractPrompt") else null
 @onready var _attack_hitbox: Area2D = $AttackHitbox if has_node("AttackHitbox") else null
 @onready var _hitbox_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D if has_node("AttackHitbox/CollisionShape2D") else null
+
+## Trạng thái animation hiện tại. Các đòn (attack/shoot) sẽ khoá animation
+## trong thời gian ngắn để chơi hết clip trước khi quay lại di chuyển.
+var _anim_locked_until: float = 0.0
+const RUN_SPEED_THRESHOLD: float = 0.75  ## |axis| >= mức này -> chạy, nhỏ hơn -> đi bộ.
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
@@ -53,6 +59,7 @@ func _process(delta: float) -> void:
 	_handle_ranged()
 	if _invuln_timer > 0.0:
 		_invuln_timer -= delta
+	_update_animation()
 
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -76,10 +83,52 @@ func _handle_jump() -> void:
 		velocity.y = jump_velocity
 
 func _update_facing() -> void:
-	if sprite:
+	# Lật hướng bằng flip_h của AnimatedSprite2D để không đảo cả vị trí con.
+	if _anim:
+		_anim.flip_h = facing < 0
+	elif sprite:
 		sprite.scale.x = absf(sprite.scale.x) * float(facing)
 	if _attack_hitbox:
 		_attack_hitbox.position.x = absf(_attack_hitbox.position.x) * float(facing)
+
+## Chọn animation theo trạng thái vật lý/đầu vào hiện tại.
+func _update_animation() -> void:
+	if _anim == null:
+		return
+	# Đang trong clip đòn đánh/bắn -> giữ nguyên tới khi hết khoá.
+	var now: float = Time.get_ticks_msec() / 1000.0
+	if now < _anim_locked_until:
+		return
+
+	var next: StringName = &"idle"
+	if not is_on_floor():
+		next = &"jump"
+	else:
+		var axis: float = absf(PlayerInput.get_move_axis())
+		if axis >= RUN_SPEED_THRESHOLD:
+			next = &"run"
+		elif axis > 0.01:
+			next = &"walk"
+		else:
+			next = &"idle"
+
+	_play(next)
+
+## Đổi animation nếu khác clip đang chạy.
+func _play(anim_name: StringName) -> void:
+	if _anim == null:
+		return
+	if _anim.sprite_frames == null or not _anim.sprite_frames.has_animation(anim_name):
+		return
+	if _anim.animation != anim_name or not _anim.is_playing():
+		_anim.play(anim_name)
+
+## Chơi 1 clip 1 lần rồi khoá animation trong khoảng thời gian cho trước.
+func _play_locked(anim_name: StringName, lock_seconds: float) -> void:
+	if _anim == null:
+		return
+	_play(anim_name)
+	_anim_locked_until = Time.get_ticks_msec() / 1000.0 + lock_seconds
 
 # --- Chiến đấu / khai thác ---
 
@@ -100,6 +149,7 @@ func _start_attack() -> void:
 	_cooldown_timer = attack_cooldown
 	_attack_timer = attack_active_time
 	_hitbox_shape.disabled = false
+	_play_locked(&"attack", attack_cooldown)
 	# Đợi 1 frame vật lý để Area2D cập nhật overlap rồi mới quét mục tiêu.
 	await get_tree().physics_frame
 	if _attack_hitbox == null:
@@ -146,6 +196,7 @@ func _handle_ranged() -> void:
 	_fire_projectile()
 
 func _fire_projectile() -> void:
+	_play_locked(&"shoot", 0.3)
 	var proj: Node = PROJECTILE_SCENE.instantiate()
 	get_parent().add_child(proj)
 	var item: ItemData = ItemDB.get_item(ranged_weapon)
@@ -181,7 +232,7 @@ func _die() -> void:
 	# Hồi sinh đơn giản: về nhà + hồi đầy máu (MVP, tránh màn hình game over phức tạp).
 	GameState.player_health = GameState.player_max_health
 	health_changed.emit(GameState.player_health, GameState.player_max_health)
-	SceneManager.goto_map("House", "from_forest")
+	SceneManager.goto_map("House", "default")
 
 # --- Hệ thống tương tác ---
 

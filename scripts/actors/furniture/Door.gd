@@ -5,8 +5,8 @@ class_name Door
 ## Nếu require_unlock = true, cổng chỉ hoạt động khi target_map đã mở khóa
 ## (qua QuestManager). Chưa mở -> hiện prompt khóa và không chuyển.
 
-## Map key đích (khớp SceneManager.MAP_PATHS), VD "Forest", "House".
-@export var target_map: String = "Forest"
+## Map key đích (khớp SceneManager.MAP_PATHS), VD "PhoCoHoaLu", "House".
+@export var target_map: String = "PhoCoHoaLu"
 ## Spawn point ở map đích.
 @export var target_spawn: String = "from_house"
 ## Cổng có cần map được mở khóa trước không.

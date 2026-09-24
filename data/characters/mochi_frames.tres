@@ -1,0 +1,168 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dwngu1w7fwuf1"]
+
+[ext_resource type="Texture2D" uid="uid://dxfaf6rvgk87" path="res://assets/characters/mochi/walk/00.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dqm5hsufu61c8" path="res://assets/characters/mochi/walk/01.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://5476v8lhipp4" path="res://assets/characters/mochi/walk/02.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ceuluclxrebox" path="res://assets/characters/mochi/walk/03.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bt3m7hp6tan7l" path="res://assets/characters/mochi/walk/04.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c8lx2r1oyq65c" path="res://assets/characters/mochi/run/00.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://b8ytyeg2umhve" path="res://assets/characters/mochi/run/01.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://b2bu4eij1i0l0" path="res://assets/characters/mochi/run/02.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://ba6l4aniqmjxw" path="res://assets/characters/mochi/run/03.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://ce0yf1o5imf0h" path="res://assets/characters/mochi/run/04.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://cdpg8uwektww6" path="res://assets/characters/mochi/jump/00.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://lw1hjmbn2s52" path="res://assets/characters/mochi/jump/01.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://xsevh6b1ds12" path="res://assets/characters/mochi/jump/02.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://c2h5podnopx3u" path="res://assets/characters/mochi/jump/03.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://b0coq6uidwaga" path="res://assets/characters/mochi/crouch/00.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://xbq2as0mtmtr" path="res://assets/characters/mochi/crouch/01.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://gt1vv4suidhg" path="res://assets/characters/mochi/crouch/02.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://b0metjflreubo" path="res://assets/characters/mochi/lie/00.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://co8huupyrlmdj" path="res://assets/characters/mochi/lie/01.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://bct4n7xbhbouq" path="res://assets/characters/mochi/lie/02.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://d3xs3lx30v2gq" path="res://assets/characters/mochi/attack/00.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://b2odrb46skdwm" path="res://assets/characters/mochi/attack/01.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://t7ubtyapms7x" path="res://assets/characters/mochi/attack/02.png" id="23"]
+[ext_resource type="Texture2D" uid="uid://wv3f1jk5m4xi" path="res://assets/characters/mochi/shoot/00.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://dc7exinxeig6c" path="res://assets/characters/mochi/shoot/01.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://3fqpr1bw1lan" path="res://assets/characters/mochi/shoot/02.png" id="26"]
+[ext_resource type="Texture2D" uid="uid://c8yf7nqv325w6" path="res://assets/characters/mochi/shoot/03.png" id="27"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17")
+}],
+"loop": 1,
+"name": &"crouch",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20")
+}],
+"loop": 1,
+"name": &"lie",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

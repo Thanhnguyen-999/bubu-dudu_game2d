@@ -1,23 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0splash00001"]
+[gd_scene format=3 uid="uid://c0splash00001"]
 
-[ext_resource type="Script" path="res://scripts/ui/SplashScreen.gd" id="1_splash"]
+[ext_resource type="Script" uid="uid://te270jul6t31" path="res://scripts/ui/SplashScreen.gd" id="1_splash"]
 [ext_resource type="Texture2D" uid="uid://bqxkngamel2p1" path="res://icon.svg" id="2_icon"]
 
-[node name="SplashScreen" type="Control"]
+[node name="SplashScreen" type="Control" unique_id=400451710]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_splash")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1925044685]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.129412, 0.156863, 0.180392, 1)
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16228291, 0.13635981, 0.24941665, 1)
 
-[node name="Center" type="VBoxContainer" parent="."]
+[node name="Center" type="VBoxContainer" parent="." unique_id=1538041956]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,9 +36,11 @@ offset_left = -160.0
 offset_top = -140.0
 offset_right = 160.0
 offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
-[node name="Logo" type="TextureRect" parent="Center"]
+[node name="Logo" type="TextureRect" parent="Center" unique_id=96346775]
 custom_minimum_size = Vector2(160, 160)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -38,14 +48,14 @@ texture = ExtResource("2_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Title" type="Label" parent="Center"]
+[node name="Title" type="Label" parent="Center" unique_id=154193893]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "BUBU DUDU
 ADVENTURE"
 horizontal_alignment = 1
 
-[node name="Sub" type="Label" parent="Center"]
+[node name="Sub" type="Label" parent="Center" unique_id=452244484]
 modulate = Color(1, 1, 1, 0.6)
 layout_mode = 2
 text = "Chạm để tiếp tục"

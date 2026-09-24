@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0player0scene1"]
+[gd_scene format=3 uid="uid://lxliegp257ig"]
 
-[ext_resource type="Script" path="res://scripts/actors/Player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://gti44dwir75b" path="res://scripts/actors/Player.gd" id="1_player"]
+[ext_resource type="SpriteFrames" uid="uid://dwngu1w7fwuf1" path="res://data/characters/mochi_frames.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 52)
@@ -8,31 +9,24 @@ size = Vector2(28, 52)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
 size = Vector2(52, 44)
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=144969167 groups=["player"]]
 collision_layer = 2
-collision_mask = 1
 script = ExtResource("1_player")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2097744284]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Node2D" parent="." unique_id=1480754898]
 
-[node name="Placeholder" type="ColorRect" parent="Sprite"]
-offset_left = -14.0
-offset_top = -26.0
-offset_right = 14.0
-offset_bottom = 26.0
-color = Color(0.949020, 0.949020, 0.949020, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=2041977650]
+position = Vector2(0, -18)
+scale = Vector2(0.9, 0.9)
+sprite_frames = ExtResource("2_frames")
+animation = &"crouch"
+autoplay = "idle"
+frame_progress = 0.54204696
 
-[node name="FaceDir" type="ColorRect" parent="Sprite"]
-offset_left = 6.0
-offset_top = -14.0
-offset_right = 14.0
-offset_bottom = -6.0
-color = Color(0.168627, 0.168627, 0.168627, 1)
-
-[node name="InteractPrompt" type="Label" parent="."]
+[node name="InteractPrompt" type="Label" parent="." unique_id=2136414345]
 visible = false
 offset_left = -70.0
 offset_top = -70.0
@@ -43,12 +37,11 @@ text = "[ Tương tác ]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=15648183]
 position = Vector2(34, 0)
 collision_layer = 8
 collision_mask = 80
-monitoring = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1513342132]
 shape = SubResource("RectangleShape2D_hitbox")
 disabled = true

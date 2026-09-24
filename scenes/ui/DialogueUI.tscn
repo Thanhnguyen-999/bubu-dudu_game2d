@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://lpegcest0ito"]
+
+[ext_resource type="Script" path="res://scripts/ui/DialogueUI.gd" id="1_dlg"]
+
+[node name="DialogueUI" type="CanvasLayer" groups=["dialogue_ui"]]
+script = ExtResource("1_dlg")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Box" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -220.0
+offset_right = -40.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Root/Box"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="Root/Box/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Tên NPC"
+
+[node name="TextLabel" type="Label" parent="Root/Box/VBox"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 22
+text = ""
+autowrap_mode = 3
+vertical_alignment = 0
+
+[node name="NextButton" type="Button" parent="Root/Box/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 22
+text = "Tiếp »"

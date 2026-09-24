@@ -11,7 +11,8 @@ signal scene_changed(new_scene: Node)
 ## Bảng map key -> đường dẫn scene. Bổ sung dần khi thêm map.
 const MAP_PATHS: Dictionary = {
 	"House": "res://scenes/maps/House.tscn",
-	"Forest": "res://scenes/maps/Forest.tscn",
+	"PhoCoHoaLu": "res://scenes/maps/PhoCoHoaLu.tscn",
+	"Rung": "res://scenes/maps/Rung.tscn",
 	"Beach": "res://scenes/maps/Beach.tscn",
 }
 

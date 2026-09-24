@@ -4,11 +4,31 @@ Game 2D side-scrolling khám phá cho Android, xây bằng **Godot 4.3 + GDScrip
 
 ## Ý tưởng
 
-Người chơi bắt đầu trong **nhà** (lưu game, cất đồ, chế tạo), ra ngoài khám phá
-các **map cố định** (chặt cây lấy gỗ, đào khoáng, săn thú), làm **nhiệm vụ** để
-mở map mới.
+Người chơi bắt đầu trong **nhà** (lưu game, cất đồ, chế tạo), ra **Phố Cổ Hoa Lư**
+(khu phố cổ ven sông, trò chuyện với dân làng), rồi vào **Rừng** để khám phá
+(chặt cây lấy gỗ, đào khoáng, săn thú), làm **nhiệm vụ** để mở map mới.
 
 Luồng khởi động: **Splash → Menu chính → Intro cutscene → Tutorial → Gameplay**.
+
+Bản đồ nối tiếp: **Nhà → Phố Cổ Hoa Lư → Rừng → (Bờ biển - mở khóa qua quest)**.
+
+## Bản đồ
+
+| Map | File | Nội dung |
+|-----|------|----------|
+| Nhà | `House.tscn` | Lưu game (giường), rương, bàn chế tạo. Cửa ra Phố Cổ Hoa Lư. |
+| Phố Cổ Hoa Lư | `PhoCoHoaLu.tscn` | Khu phố cổ ven sông (parallax). **Chỉ có NPC để trò chuyện**, không quái/cây. Cổng trái về Nhà, cổng phải vào Rừng. |
+| Rừng | `Rung.tscn` | Khu khám phá: cây/đá/quặng để thu thập + thú để săn + nhiệm vụ. Cổng trái về phố cổ, cổng phải tới Bờ biển (khóa). |
+| Bờ biển | `Beach.tscn` | Map stub, mở khóa khi hoàn thành quest gom gỗ. |
+
+## Hệ thống hội thoại NPC
+
+- `NPC` (`scripts/actors/NPC.gd`, extends `Interactable`): `@export npc_name` + `lines: Array[String]`.
+- `DialogueUI` (`scenes/ui/DialogueUI.tscn`, group `dialogue_ui`): hộp thoại dưới màn hình,
+  chạm/nút "Tiếp"/phím Tương tác để qua câu, hết thì đóng. Khóa input gameplay khi mở
+  (`PlayerInput.input_locked`).
+- Phố Cổ Hoa Lư có 5 NPC (Cụ Lang Già, Chị Bán Hàng, Bác Ngư Dân, Cu Tí, Thầy Đồ) với
+  thoại mặc định — chỉnh lại text ngay trong `PhoCoHoaLu.tscn` (thuộc tính `lines` của mỗi NPC).
 
 ## Tech stack & quyết định thiết kế
 
@@ -25,8 +45,8 @@ Luồng khởi động: **Splash → Menu chính → Intro cutscene → Tutorial
 ```
 scenes/
   actors/     # Player, Enemy, ... (PackedScene)
-  boot/       # SplashScreen, MainMenu (thêm ở Task 3)
-  maps/        # House, Forest (thêm ở Task 4, 6)
+  boot/       # SplashScreen, MainMenu, IntroCutscene
+  maps/       # House, PhoCoHoaLu, Rung, Beach
   test/       # TestRoom - scene test tạm cho Task 1
   ui/         # HUD, Inventory UI, ... (thêm dần)
 scripts/
@@ -74,6 +94,38 @@ Xem task list trong session. Đã xong:
 - **Task 4**: Scene Nhà (`scenes/maps/House.tscn`) với nền/tường, camera giới hạn, và đồ tương tác (Giường/Rương/Bàn chế tạo/Cửa ra). Hệ tương tác: `Interactable` base + prompt hiện khi lại gần, nút Tương tác kích hoạt cái gần nhất. New Game giờ vào thẳng Nhà.
 - **Task 5**: Inventory theo ô (data-driven). `ItemData` (.tres), `ItemDB` autoload tra cứu theo id, `Inventory` class (add/remove/stack), `PlayerInventory` autoload, UI túi đồ lưới ô (phím `I` hoặc nút "Túi"). Item: gỗ/đá/quặng/sợi + rìu/cuốc/kiếm/cung. (Tạm: mở Rương cho item mẫu để test, Task 9 thay bằng UI rương thật.)
 - **Task 6**: Map Rừng ngoài trời (`scenes/maps/Forest.tscn`, rộng 2400px) + chuyển map hai chiều Nhà↔Rừng qua cổng, có màn hình loading (fade) và spawn point. `SceneManager.goto_map` free scene cũ khi đổi map.
+
+## Cảnh nền phố cổ (parallax)
+
+Map Rừng dùng nền tranh phố cổ ven sông từ các package "Meowa" (`assets/`), ghép 3 lớp
+qua `ParallaxBackground` để có hiệu ứng chiều sâu khi di chuyển:
+
+| Lớp | Ảnh (1376×768) | `motion_scale` | Vai trò |
+|-----|----------------|----------------|---------|
+| Sky | `sky-4/.../image-4.png` | 0.20 | Bầu trời + núi xa (cuộn chậm nhất) |
+| Town | `background-godot4/.../background.png` | 0.55 | Nhà cổ, đèn lồng, cầu, sông, thuyền |
+| Street | `street-3/.../image-3.png` | 1.00 | Đường lát đá nơi nhân vật đi (world-locked) |
+
+Mỗi lớp bật `motion_mirroring.x = 1376` để **lặp ngang liền mạch** phủ hết map 2400px.
+Collision mặt đất giữ nguyên (`StaticBody2D`), art đường chỉ là hình nền phía sau nhân vật.
+Đã bỏ các platform/đồi placeholder cũ để khớp mặt đường phẳng.
+
+### Layer bổ sung ở Phố Cổ Hoa Lư
+
+- **Tháp** (`assets/thap.png`): ParallaxLayer `motion_scale=0.42` (giữa sky và town), đặt sau
+  layer town làm điểm nhấn đường chân trời.
+- **Cổng "Phố Cổ Hoa Lư"** (`assets/gate.png`): `Sprite2D` world-locked ở giữa map
+  (`z_index=5`, trên nhân vật) để player đi xuyên qua khung cổng.
+- Cả 2 ảnh gốc là JPG nền trắng → đã khử nền trắng thành PNG trong suốt (bằng Godot Image API,
+  ngưỡng độ trắng + độ bão hòa + feather mép) để hòa vào cảnh.
+
+### Hiệu ứng
+
+- **Hoa bay** (`scenes/ui/PetalFX.tscn`): `CPUParticles2D` phủ màn hình (CanvasLayer),
+  cánh hoa hồng rơi + xoay + đung đưa. Texture `assets/fx/petal.png`.
+- **Mây trôi** (`scripts/actors/CloudDrift.gd`): vài `Sprite2D` mây trong SkyLayer trôi ngang
+  chậm rồi vòng lại. Texture `assets/fx/cloud.png`.
+- Texture hoa/mây sinh bằng `tools/gen_petal.py` (Python thuần, không lib ngoài).
 - **Task 7**: Tài nguyên khai thác. `ResourceNode` (cây→gỗ, đá→đá, quặng→quặng) có HP, rơi item vào túi, ẩn đi và hồi sinh sau timer. Player có hitbox tấn công theo hướng (nút "Đánh"/phím J); công cụ phù hợp (rìu/cuốc) trong túi tăng lực khai thác. Rừng có sẵn 3 cây + 1 đá + 1 quặng.
 - **Task 8**: Chiến đấu. `Enemy` AI patrol/chase/attack với máu (thanh HP đầu quái), rơi sợi khi chết. Cận chiến dùng kiếm (nút "Đánh"), tầm xa bắn tên bằng cung (nút "Bắn"/phím K, cần có cung trong túi). Player có máu (thanh HUD), nhận sát thương khi quái đánh, bất tử tạm sau khi trúng, chết thì hồi sinh về nhà. `HealthComponent`/`Hurtbox` tái sử dụng. Rừng có 3 quái.
 - **Task 9**: Rương + Chế tạo. Rương (`ChestUI`) chuyển đồ túi↔rương (chạm ô để chuyển stack), nội dung giữ trong `ChestStorage` autoload. Bàn chế tạo (`CraftingUI`) hiển thị công thức từ `RecipeData` (.tres), nút Chế tạo bật khi đủ liệu, craft trừ nguyên liệu + thêm sản phẩm. Recipe: gỗ→rìu, gỗ+đá→cuốc, gỗ+quặng→kiếm, gỗ+sợi→cung. (Đã gỡ code cấp item test ở Rương.)

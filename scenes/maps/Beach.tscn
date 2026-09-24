@@ -50,7 +50,7 @@ position = Vector2(180, 580)
 [node name="DoorForest" parent="." instance=ExtResource("6_door")]
 position = Vector2(110, 580)
 prompt_text = "Về rừng"
-target_map = "Forest"
+target_map = "Rung"
 target_spawn = "from_beach"
 
 [node name="Player" parent="." instance=ExtResource("2_player")]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0forest000001"]
+[gd_scene format=3 uid="uid://c0rung0000001"]
 
-[ext_resource type="Script" path="res://scripts/maps/Forest.gd" id="1_forest"]
+[ext_resource type="Script" path="res://scripts/maps/Rung.gd" id="1_rung"]
 [ext_resource type="PackedScene" uid="uid://c0player0scene1" path="res://scenes/actors/Player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://c0touchctrl0001" path="res://scenes/ui/TouchControls.tscn" id="3_touch"]
 [ext_resource type="PackedScene" uid="uid://c0invui0000001" path="res://scenes/ui/InventoryUI.tscn" id="4_invui"]
@@ -16,28 +16,22 @@ size = Vector2(2400, 80)
 [sub_resource type="RectangleShape2D" id="RS_wall"]
 size = Vector2(40, 720)
 
-[sub_resource type="RectangleShape2D" id="RS_hill"]
-size = Vector2(320, 40)
-
 [sub_resource type="RectangleShape2D" id="RS_ledge"]
 size = Vector2(220, 24)
 
-[sub_resource type="RectangleShape2D" id="RS_platform2"]
-size = Vector2(180, 24)
-
-[node name="Forest" type="Node2D"]
-script = ExtResource("1_forest")
+[node name="Rung" type="Node2D"]
+script = ExtResource("1_rung")
 
 [node name="Sky" type="ColorRect" parent="."]
 offset_right = 2400.0
 offset_bottom = 720.0
 color = Color(0.454902, 0.686275, 0.847059, 1)
 
-[node name="SkyLower" type="ColorRect" parent="."]
-offset_top = 360.0
+[node name="Hills" type="ColorRect" parent="."]
+offset_top = 300.0
 offset_right = 2400.0
-offset_bottom = 720.0
-color = Color(0.588235, 0.772549, 0.815686, 1)
+offset_bottom = 620.0
+color = Color(0.4, 0.6, 0.42, 1)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(1200, 660)
@@ -77,21 +71,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
 shape = SubResource("RS_wall")
 
-[node name="Hill" type="StaticBody2D" parent="."]
-position = Vector2(700, 560)
-collision_layer = 1
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hill"]
-shape = SubResource("RS_hill")
-
-[node name="Visual" type="ColorRect" parent="Hill"]
-offset_left = -160.0
-offset_top = -20.0
-offset_right = 160.0
-offset_bottom = 60.0
-color = Color(0.31, 0.5, 0.31, 1)
-
 [node name="Ledge" type="StaticBody2D" parent="."]
 position = Vector2(1150, 460)
 collision_layer = 1
@@ -107,43 +86,28 @@ offset_right = 110.0
 offset_bottom = 12.0
 color = Color(0.45, 0.32, 0.19, 1)
 
-[node name="Platform2" type="StaticBody2D" parent="."]
-position = Vector2(1700, 520)
-collision_layer = 1
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
-shape = SubResource("RS_platform2")
-
-[node name="Visual" type="ColorRect" parent="Platform2"]
-offset_left = -90.0
-offset_top = -12.0
-offset_right = 90.0
-offset_bottom = 12.0
-color = Color(0.45, 0.32, 0.19, 1)
-
 [node name="SpawnPoints" type="Node2D" parent="."]
 
-[node name="Spawn_from_house" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
-position = Vector2(140, 580)
+[node name="Spawn_from_town" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
+position = Vector2(160, 580)
 
 [node name="Spawn_default" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
-position = Vector2(140, 580)
+position = Vector2(160, 580)
 
 [node name="Spawn_from_beach" type="Marker2D" parent="SpawnPoints" groups=["spawn_points"]]
-position = Vector2(2280, 580)
+position = Vector2(2260, 580)
 
 [node name="ResourceNodes" type="Node2D" parent="."]
 
 [node name="Tree1" parent="ResourceNodes" instance=ExtResource("6_res")]
-position = Vector2(420, 580)
+position = Vector2(460, 580)
 node_id = "tree1"
 drop_item = &"wood"
 drop_amount = 2
 preferred_tool = &"axe"
 
 [node name="Tree2" parent="ResourceNodes" instance=ExtResource("6_res")]
-position = Vector2(980, 580)
+position = Vector2(940, 580)
 node_id = "tree2"
 drop_item = &"wood"
 drop_amount = 2
@@ -157,7 +121,7 @@ drop_amount = 3
 preferred_tool = &"axe"
 
 [node name="Rock1" parent="ResourceNodes" instance=ExtResource("6_res")]
-position = Vector2(1250, 420)
+position = Vector2(1150, 420)
 node_id = "rock1"
 drop_item = &"stone"
 drop_amount = 2
@@ -190,7 +154,7 @@ text = "Quặng"
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource("7_enemy")]
-position = Vector2(850, 590)
+position = Vector2(820, 590)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("7_enemy")]
 position = Vector2(1600, 590)
@@ -198,11 +162,11 @@ position = Vector2(1600, 590)
 [node name="Enemy3" parent="Enemies" instance=ExtResource("7_enemy")]
 position = Vector2(2100, 590)
 
-[node name="DoorHome" parent="." instance=ExtResource("5_door")]
+[node name="DoorTown" parent="." instance=ExtResource("5_door")]
 position = Vector2(90, 580)
-prompt_text = "Về nhà"
-target_map = "House"
-target_spawn = "from_forest"
+prompt_text = "Về phố cổ"
+target_map = "PhoCoHoaLu"
+target_spawn = "from_rung"
 
 [node name="DoorBeach" parent="." instance=ExtResource("5_door")]
 position = Vector2(2320, 580)
@@ -213,7 +177,7 @@ require_unlock = true
 locked_prompt = "Bờ biển bị khóa (làm nhiệm vụ)"
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector2(140, 580)
+position = Vector2(160, 580)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 0
@@ -233,7 +197,7 @@ position_smoothing_enabled = true
 [node name="Hint" type="Label" parent="."]
 offset_left = 200.0
 offset_top = 100.0
-offset_right = 1000.0
+offset_right = 1100.0
 offset_bottom = 140.0
 theme_override_font_sizes/font_size = 22
-text = "Rừng: chặt cây gom 10 gỗ để mở bờ biển. Cổng phải tới bờ biển."
+text = "Rừng: chặt cây gom 10 gỗ, săn thú. Cổng trái về phố cổ."
